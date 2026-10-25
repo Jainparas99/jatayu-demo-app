@@ -1,0 +1,3 @@
+{% extends 'workboard/base.html' %}
+{% block title %}Sign in · QueueDesk{% endblock %}
+{% block content %}<p class="eyebrow">YOUR TEAM WORK QUEUE</p><h1>Welcome back.</h1><form method="post" class="panel">{% csrf_token %}{{ form.as_p }}<input type="hidden" name="next" value="{{ next }}"><button>Sign in</button></form>{% endblock %}

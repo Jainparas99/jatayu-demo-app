@@ -1,0 +1,8 @@
+{% extends 'workboard/base.html' %}
+{% block content %}<p class="eyebrow">YOUR WORK, AT A GLANCE</p><h1>Keep the queue moving.</h1>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+{% if cards|length_is:"0" %}<div class="panel"><h2>Your queue is clear</h2><p>Work items assigned to you will appear here.</p></div>
+{% else %}<p>{% if cards|length_is:"1" %}1 work item{% else %}{{ cards|length }} work items{% endif %} assigned to you.</p>
+<table><thead><tr><th>Code</th><th>Work item</th><th>Status</th><th>Budget</th><th>Deadline</th></tr></thead><tbody>{% for card in cards %}<tr><td>{{ card.code }}</td><td>{{ card.title }}</td><td>{{ card.get_status_display }}</td><td>{{ card.estimate }}</td><td>{{ card.due_at|date:"Y-m-d H:i"|default:"Unscheduled" }}</td></tr>{% endfor %}</tbody></table>
+<form class="panel" action="{% url 'schedule-cards' %}" method="post">{% csrf_token %}<label for="day">Schedule unfinished work for</label><input type="date" name="day" id="day" required><button>Set 17:00 UTC deadline</button></form>{% endif %}
+{% endblock %}
